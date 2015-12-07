@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>为PHP设置服务器(Apache/Nginx)环境变量 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="PHP,Apache,Nginx,环境变量,服务器">
 
 
 
@@ -278,8 +280,144 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140504">为PHP设置服务器(Apache/Nginx)环境变量</h1>
+  <blockquote>
+  <p>设置环境变量常见的地方为区分开发环境/生产环境，或者定义一些数据库的帐号密码</p>
+</blockquote>
+
+<h2 id="apache">设置Apache环境变量</h2>
+
+<h3 id="section">指令</h3>
+<p>设置当前环境变量为<code>DEV</code></p>
+
+<pre><code>SetEnv RUNTIME_ENVIROMENT DEV
+</code></pre>
+
+<p>数据库帐号密码</p>
+
+<pre><code>SetEnv MYSQL_USERNAME root
+SetEnv MYSQL_PASSWORD root
+</code></pre>
+
+<h3 id="section-1">配置文件格式</h3>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+    ServerAdmin admin@admin.com
+    DocumentRoot "/var/www/"
+    ServerName localhost
+    SetEnv RUNTIME_ENVIROMENT DEV
+    SetEnv MYSQL_USERNAME root
+    SetEnv MYSQL_PASSWORD root
+    ErrorLog "logs/error.log"
+    CustomLog "logs/access.log" common
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<h2 id="nginx">设置Nginx环境变量</h2>
+
+<h3 id="section-2">指令</h3>
+<p>设置当前环境变量为<code>DEV</code></p>
+
+<pre><code>fastcgi_param RUNTIME_ENVIROMENT 'DEV'
+</code></pre>
+
+<p>数据库帐号密码</p>
+
+<pre><code>fastcgi_param MYSQL_USERNAME 'root'
+fastcgi_param MYSQL_PASSWORD 'root'
+</code></pre>
+
+<h3 id="section-3">配置文件格式</h3>
+<p>在fastcgi_params文件中配置</p>
+
+<pre><code>fastcgi_param RUNTIME_ENVIROMENT 'DEV';
+fastcgi_param MYSQL_USERNAME 'root';
+fastcgi_param MYSQL_PASSWORD 'root';   
+</code></pre>
+
+<p>在nginx.conf中配置</p>
+
+<pre><code>server {
+    listen   80; 
+    root /var/www;
+    index index.php;
+    server_name localhost;
+    location /
+    {   
+         index index.php;
+    }   
+      
+    location ~ .*\.(php|php5)?$ {
+        fastcgi_pass 127.0.0.1:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+    }   
+}
+</code></pre>
+
+<h2 id="php">为PHP脚本设置环境变量</h2>
+
+<h3 id="section-4">为当前用户临时设置</h3>
+
+<p>临时设置只需要执行</p>
+
+<pre><code>export KEY=VALUE
+</code></pre>
+
+<h3 id="section-5">为当前用户永久设置</h3>
+
+<p>在<code>~/.bashrc</code>（不同系统各有不同）中写</p>
+
+<h3 id="root">为所有用户（不包括root）设置</h3>
+
+<p>创建文件<code>/etc/profile.d/test.sh</code>，写入</p>
+
+<pre><code>KEY=VALUE
+</code></pre>
+
+<h3 id="root-1">为所有用户（包括root）设置</h3>
+
+<p>在<code>/etc/environment</code>中写入</p>
+
+<pre><code>KEY=VALUE
+</code></pre>
+
+<p><em>注意，这个文件的生效时间是用户登录时，所以对于root来说，需要重启机器</em></p>
+
+<h3 id="supervisor">在Supervisor中设置</h3>
+
+<p>有的时候PHP脚本是用Supervisor来控制的，所以记得设置supervisor配置中的environment项</p>
+
+<h2 id="php-1">在PHP中调用服务器环境变量</h2>
+
+<p>在PHP中有两个调用方式：</p>
+
+<pre><code>$env = getenv('RUNTIME_ENVIROMENT');
+</code></pre>
+
+<p>还有超全局变量方式：</p>
+
+<pre><code>$env = $_SERVER['RUNTIME_ENVIROMENT'];
+</code></pre>
+
+<h2 id="section-6">参考</h2>
+<ol>
+  <li><a href="http://hi.baidu.com/epplera/item/9e41798601f6da7f850fab71">apache和nginx设置环境变量的方法</a></li>
+</ol>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/05/04/set-environment-variables-of-server-for-php.html&text=为PHP设置服务器(Apache/Nginx)环境变量" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/05/04/set-environment-variables-of-server-for-php.html&title=为PHP设置服务器(Apache/Nginx)环境变量" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>给OpenStack创建Ubuntu镜像 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="接着WinXP和Win7，接下来才做Ubuntu镜像~">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,75 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130515">给OpenStack创建Ubuntu镜像</h1>
+  <h2 id="ubuntu">创建Ubuntu镜像</h2>
+
+<h3 id="img">创建一个img文件</h3>
+
+<pre><code>kvm-img create -f raw ubuntu.img 10G
+</code></pre>
+
+<h3 id="section">启动安装程序</h3>
+
+<pre><code>sudo kvm -m 512 -cdrom ubuntu-12.04-server-amd64.iso -drive file=ubuntu.img -boot d -nographic -vnc :0
+</code></pre>
+
+<h3 id="section-1">接入继续安装步骤</h3>
+
+<p>我是在ubuntu下完成的，安装一个vncview即可</p>
+
+<pre><code>vncview localhost:5900
+</code></pre>
+
+<p>这里的端口号根据上一步 -vnc :0 推移，如果是-vnc :1则是5901端口</p>
+
+<h3 id="section-2">安装过程</h3>
+
+<p>在分区那里不能有swap分区，手动只设一个分区，挂载<code>/</code>根目录</p>
+
+<h3 id="section-3">装完以后重新开启虚拟机</h3>
+
+<pre><code>sudo kvm -m 512 -drive file=ubuntu.img -boot c -nographic -vnc :0
+</code></pre>
+
+<h3 id="eth0">删除下面文件，避免增加除了eth0之外的网卡</h3>
+
+<pre><code>sudo rm -rf /etc/udev/rules.d/70-persistent-net.rules
+</code></pre>
+
+<h3 id="rawqcow2">如果制作前使用的是raw格式，想换成qcow2格式</h3>
+
+<pre><code>qemu-img convert -f raw -O qcow2 ./ubuntu.img ./ubuntu.qcow2
+</code></pre>
+
+<h2 id="ubuntu-1">上传Ubuntu镜像</h2>
+<p>openstack的命令以<a href="http://docs.openstack.org/trunk/openstack-compute/admin/content/creating-a-windows-image.html">最新文档</a>为标准，网上博客难免有过时的</p>
+
+<pre><code>glance image-create --name="ubuntu" --is-public=true --container-format=ovf --disk-format=qcow2 &lt; ubuntu.qcow2
+</code></pre>
+
+<h3 id="openstacktcp-3389">在openstack中打开端口（TCP 3389）</h3>
+<p>另外几个常用端口</p>
+
+<ul>
+  <li>TCP 22 (ssh)</li>
+  <li>ICMP -1 (ping)</li>
+  <li>TCP 3306 (mysql)</li>
+</ul>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/05/15/create-ubuntu-image-for-openstack.html&text=给OpenStack创建Ubuntu镜像" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/05/15/create-ubuntu-image-for-openstack.html&title=给OpenStack创建Ubuntu镜像" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>从Bash切换到Zsh | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="Zsh在使用一段时间以后，确实是不错，这个过程逐渐完善吧">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,37 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130522">从Bash切换到Zsh</h1>
+  <h2 id="zsh">安装Zsh</h2>
+<p>我在mac下，使用<code>port install zsh</code>就好了，因为mac自带的Zsh比较老，然后使用<code>chsh -s /opt/local/bin/zsh</code>搞定</p>
+
+<h2 id="zsh-1">安装Zsh配置文件</h2>
+<p>克隆配置</p>
+
+<pre><code>git clone git://github.com/sjl/oh-my-zsh.git ~/.oh-my-zsh
+</code></pre>
+
+<p>移动到根目录</p>
+
+<pre><code>cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+</code></pre>
+
+<h2 id="zsh-2">使用Zsh</h2>
+<p><a href="http://lostjs.com/2012/09/27/zsh/">使用Zsh的九个理由</a>写了Zsh最令人激动的理由</p>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/05/22/change-to-zsh.html&text=从Bash切换到Zsh" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/05/22/change-to-zsh.html&title=从Bash切换到Zsh" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

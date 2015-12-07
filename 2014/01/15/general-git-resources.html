@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>Git 常用资源 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="Git">
 
 
 
@@ -278,8 +280,173 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140115">Git 常用资源</h1>
+  <h2 id="section">库管理</h2>
+
+<h3 id="section-1">克隆库</h3>
+
+<pre><code class="language-bash">git clone https://github.com/php/php-src.git
+git clone --depth=1 https://github.com/php/php-src.git # 只抓取最近的一次 commit
+</code></pre>
+
+<h2 id="section-2">历史管理</h2>
+
+<h3 id="section-3">查看历史</h3>
+
+<pre><code class="language-bash">git log --pretty=oneline filename # 一行显示
+git show xxxx # 查看某次修改
+</code></pre>
+
+<h3 id="section-4">标签功能</h3>
+
+<pre><code class="language-bash">git tag # 显示所有标签
+git tag -l 'v1.4.2.*' # 显示 1.4.2 开头标签
+git tag v1.3 # 简单打标签   
+git tag -a v1.2 9fceb02 # 后期加注标签
+git tag -a v1.4 -m 'my version 1.4' # 增加标签并注释， -a 为 annotated 缩写
+git show v1.4 # 看某一标签详情
+git push origin v1.5 # 分享某个标签
+git push origin --tags # 分享所有标签
+</code></pre>
+
+<h3 id="section-5">回滚操作</h3>
+
+<pre><code class="language-bash">git reset 9fceb02 # 保留修改
+git reset 9fceb02 --hard # 删除之后的修改
+</code></pre>
+
+<h3 id="section-6">取消文件的修改</h3>
+
+<pre><code class="language-bash">git checkout -- a.php #  取消单个文件
+git checkout -- # 取消所有文件的修改
+</code></pre>
+
+<h3 id="section-7">删除文件</h3>
+
+<pre><code class="language-bash">git rm a.php  # 直接删除文件
+git rm --cached a.php # 删除文件暂存状态
+</code></pre>
+
+<h3 id="section-8">移动文件</h3>
+
+<pre><code class="language-bash">git mv a.php ./test/a.php
+</code></pre>
+
+<h3 id="section-9">查看文件修改</h3>
+
+<pre><code class="language-bash">git diff          # 查看未暂存的文件更新 
+git diff --cached # 查看已暂存文件的更新 
+</code></pre>
+
+<h3 id="staging">暂存和恢复当前staging</h3>
+
+<pre><code class="language-bash">git stash # 暂存当前分支的修改
+git stash apply # 恢复最近一次暂存
+git stash list # 查看暂存内容
+git stash apply stash@{2} # 指定恢复某次暂存内容
+git stash drop stash@{0} # 删除某次暂存内容
+</code></pre>
+
+<h3 id="commit-">修改 commit 历史纪录</h3>
+
+<pre><code class="language-bash">git rebase -i 0580eab8
+</code></pre>
+
+<h2 id="section-10">分支管理</h2>
+
+<h3 id="section-11">创建分支</h3>
+
+<pre><code class="language-bash">git branch develop # 只创建分支
+git checkout -b master develop # 创建并切换到 develop 分支
+</code></pre>
+
+<h3 id="section-12">合并分支</h3>
+
+<pre><code class="language-bash">git checkout master # 切换到 master 分支
+git merge --no-ff develop # 把 develop 合并到 master 分支，no-ff 选项的作用是保留原分支记录
+git rebase develop # rebase 当前分支到 develop
+git branch -d develop # 删除 develop 分支
+</code></pre>
+
+<h3 id="section-13">克隆远程分支</h3>
+
+<pre><code class="language-bash">git branch -r # 显示所有分支，包含远程分支
+git checkout origin/android
+</code></pre>
+
+<h3 id="develop">修复develop上的合并错误</h3>
+
+<ol>
+  <li>将merge前的commit创建一个分之，保留merge后代码</li>
+  <li>将develop <code>reset --force</code>到merge前，然后<code>push --force</code></li>
+  <li>在分支中rebase develop</li>
+  <li>将分支push到服务器上重新merge</li>
+</ol>
+
+<h3 id="section-14">强制更新到远程分支最新版本</h3>
+
+<pre><code class="language-bash">git reset --hard origin/master
+git submodule update --remote -f
+</code></pre>
+
+<h2 id="submodule">Submodule使用</h2>
+
+<h3 id="submodule-1">克隆带submodule的库</h3>
+
+<pre><code class="language-bash">git clone --recursive https://github.com/chaconinc/MainProject
+</code></pre>
+
+<h3 id="cloneclone-submodule">clone主库后再去clone submodule</h3>
+
+<pre><code class="language-bash">git clone https://github.com/chaconinc/MainProject
+git submodule init
+git submodule update
+</code></pre>
+
+<h2 id="git">Git设置</h2>
+
+<p>Git的全局设置在<code>~/.gitconfig</code>中，单独设置在<code>project/.git/config</code>下。</p>
+
+<p>忽略设置全局在<code>~/.gitignore_global</code>中，单独设置在<code>project/.gitignore</code>下。</p>
+
+<h3 id="commit--1">设置 commit 的用户和邮箱</h3>
+
+<pre><code class="language-bash">git config user.name "xx"
+git config user.email "xx@xx.com"
+</code></pre>
+
+<p>或者直接修改config文件</p>
+
+<pre><code class="language-bash">[user]
+    name = xxx
+    email = xxx@xxx.com
+</code></pre>
+
+<h3 id="section-15">查看设置项</h3>
+
+<pre><code class="language-bash">git config --list
+</code></pre>
+
+<h3 id="git-1">设置git终端颜色</h3>
+
+<pre><code class="language-bash">git config --global color.diff auto
+git config --global color.status auto
+git config --global color.branch auto
+</code></pre>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/01/15/general-git-resources.html&text=Git 常用资源" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/01/15/general-git-resources.html&title=Git 常用资源" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

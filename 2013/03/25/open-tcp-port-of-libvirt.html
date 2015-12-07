@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>Linux下开启Libvirtd的tcp监控 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="在开发OpenStack时，涉及到远程操作Libvirt，这个时候必须打开远程TCP端口才能正常操作">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,54 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130325">Linux下开启Libvirtd的tcp监控</h1>
+  <p>使用virsh连接到别的服务器时，使用的是tcp连接</p>
+
+<pre><code>virsh -c qemu+tcp://host/system
+</code></pre>
+
+<p>如果目标服务器没有开启libvirtd的tcp端口监听时，会出现</p>
+
+<pre><code>error: unable to connect to server at 'host:16509': Connection refused
+error: failed to connect to the hypervisor
+</code></pre>
+
+<h2 id="ubuntu">ubuntu下解决方法</h2>
+
+<pre><code>sed -i 's/#listen_tls = 0/listen_tls = 0/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#listen_tcp = 1/listen_tcp = 1/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#auth_tcp = "sasl"/auth_tcp = "none"/g' /etc/libvirt/libvirtd.conf
+
+vi /etc/default/libvirt-bin
+修改为libvirt_opts = "-d -l"  
+增加-l监听tcp
+
+service libvirt-bin restart
+</code></pre>
+
+<h2 id="centos">centos下解决方法</h2>
+
+<pre><code>sed -i 's/#listen_tls = 0/listen_tls = 0/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#listen_tcp = 1/listen_tcp = 1/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#auth_tcp = "sasl"/auth_tcp = "none"/g' /etc/libvirt/libvirtd.conf
+sed -i 's/#LIBVIRTD_ARGS="--listen"/LIBVIRTD_ARGS="--listen"/g' /etc/sysconfig/libvirtd
+
+service libvirtd restart
+</code></pre>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/03/25/open-tcp-port-of-libvirt.html&text=Linux下开启Libvirtd的tcp监控" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/03/25/open-tcp-port-of-libvirt.html&title=Linux下开启Libvirtd的tcp监控" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

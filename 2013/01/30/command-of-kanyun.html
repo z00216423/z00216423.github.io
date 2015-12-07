@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>kanyun的api-client命令 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="kanyun的api-client命令">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,60 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130130">kanyun的api-client命令</h1>
+  <pre><code>uuid:虚拟机的唯一标识，如08e89e41-d2c2-4c5d-ba2a-c0d180942270
+column_family(metric): 'cpu','vmnetwork','mem_max','mem_free','nic_incoming','nic_outgoing','blk_read','blk_write'
+super_column_family:当column_family为vmnetwork,cpu,mem*时为total，其他情况为'vnet0','vda'等
+timestamp: 时间戳，如1357628942
+option:额外选项，用来处理数据，'sum','max','min','avg','sam'
+period:时间间隔    
+</code></pre>
+
+<h3 id="section">获得某一虚拟机一段时间内某一度量标准记录值</h3>
+
+<pre><code>api-client -get &lt;uuid&gt; &lt;column_family&gt; &lt;super_column_family&gt; &lt;timestamp_from&gt; &lt;timestamp_to&gt;
+    api-client -get 08e89e41-d2c2-4c5d-ba2a-c0d180942270 cpu total 1357628942 1357629699
+</code></pre>
+
+<h3 id="section-1">获得某一虚拟机一段时间内某一度量标准分析值</h3>
+
+<pre><code>api-client -get &lt;uuid&gt; &lt;column_family&gt; &lt;super_column_family&gt; &lt;option&gt; &lt;period&gt; &lt;timestring_from&gt; &lt;timestring_to&gt;
+    api-client 08e89e41-d2c2-4c5d-ba2a-c0d180942270 cpu total sum 5 2013-01-08T02:09:02 2013-01-08T02:21:05
+</code></pre>
+
+<h3 id="section-2">显示所有某一度量标准的所有内容</h3>
+
+<pre><code>api-client -l &lt;metric&gt;
+    api-client -l cpu
+</code></pre>
+
+<h3 id="section-3">时间格式转换</h3>
+
+<pre><code>api-client -t &lt;timestamp&gt;
+api-client -d &lt;timestring&gt;
+    api-client -t 1111111111
+    api-client -d 2013-01-09T10:10
+</code></pre>
+
+<h3 id="section-4">显示帮助</h3>
+
+<pre><code>    api-client -h
+</code></pre>
+
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/01/30/command-of-kanyun.html&text=kanyun的api-client命令" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/01/30/command-of-kanyun.html&title=kanyun的api-client命令" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

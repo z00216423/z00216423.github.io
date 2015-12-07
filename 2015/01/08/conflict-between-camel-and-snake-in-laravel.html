@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>Laravel 关联模型由于名称一致性导致的问题 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="Laravel,Conflict,Relationship,Model">
 
 
 
@@ -278,8 +280,77 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20150108">Laravel 关联模型由于名称一致性导致的问题</h1>
+  <h2 id="section">1. 定义关联模型</h2>
+
+<p>在Laravel里面，我们可以通过定义以下Model来完成关联查询。</p>
+
+<pre><code class="language-php">class MyPost extends Eloquent {
+    public function myPostInfo () {
+        return $this-&gt;hasOne('MyPostInfo');
+    }
+}
+
+class MyPostInfo extends Eloquent {}
+</code></pre>
+
+<h2 id="section-1">2. 使用关联模型</h2>
+
+<p>这里<code>myPostInfo()</code>用的是Camel命名规则，但是我们在读取某一个PostInfo的时候可以用Snake规则。如下面代码都是可行的：</p>
+
+<pre><code class="language-php">$post = MyPost::find(1);
+$post_info = $post-&gt;myPostInfo; // example 1
+$post_info = $post-&gt;my_post_info; // example 2
+</code></pre>
+
+<p>Laravel允许上述两种方法，但是没有合理的处理使用两种命名造成的冲突。</p>
+
+<h2 id="section-2">3. 缓存失效</h2>
+
+<p>如果我们同时使用了上述两个例子，就会使其中一个缓存失效。在Model的relations变量中，缓存了已经读取过的关联Model，但是当我们用不同规则的名字去读取的时候，却会使得前一个缓存失效。例如</p>
+
+<pre><code class="language-php">$post_info = $post-&gt;myPostInfo; 
+// $post-&gt;relations = [‘myPostInfo’ =&gt; ..];
+
+$post_info = $post-&gt;my_post_info;
+// $post-&gt;relations = [‘myPostInfo’ =&gt; …, ‘my_post_info’ =&gt; …];
+</code></pre>
+
+<p>所以如果不希望缓存失效，得在项目中只使用一种命名方法去读取关系模型。Laravel推荐的是Camel Case.</p>
+
+<h2 id="toarray-">4. toArray() 方法失效</h2>
+
+<p>如果同时使用了两者，另外一个问题就是导致<code>Model::toArray()</code>失效。因为<code>toArray()</code>方法首先去<code>relations</code>中查找Snake Case命名的关联模型，没有的话才去看Camel Case的。</p>
+
+<p>所以如果用到了<code>toArray()</code>方法来转换Model，切忌同时使用两者。</p>
+
+<h2 id="section-3">5. 容易犯错的位置</h2>
+
+<p>最容易犯错的代码是这样的：</p>
+
+<pre><code class="language-php">MyPost::with(‘myPostInfo’)-&gt;get();
+</code></pre>
+
+<p>在使用With去eagerLoad关联模型时，必须使用和定义方法同名的key去读取，那么这样读取出来的方法只能是Camel Case的key。其他地方就只能用</p>
+
+<pre><code class="language-php">$my_post-&gt;myPostInfo;
+</code></pre>
+
+<p>来保证不出问题。</p>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2015/01/08/conflict-between-camel-and-snake-in-laravel.html&text=Laravel 关联模型由于名称一致性导致的问题" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2015/01/08/conflict-between-camel-and-snake-in-laravel.html&title=Laravel 关联模型由于名称一致性导致的问题" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

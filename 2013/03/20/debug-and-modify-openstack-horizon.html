@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>调试和修改OpenStack中的Horizon部分 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="在OpenStack二次开发中，Horizon肯定是常常要修改的部分，简要说一下我自己调试和修改的方式">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,52 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130320">调试和修改OpenStack中的Horizon部分</h1>
+  <h2 id="section">进入调试模式</h2>
+<p>Horizon在python的django框架上进行开发，所以可以利用django的manage.py来进行调试。</p>
+
+<p>方式：</p>
+
+<ul>
+  <li>关闭apache</li>
+  <li>进入Horizon目录</li>
+  <li>执行命令manage.py runserver 0.0.0.0:80</li>
+</ul>
+
+<p>这样修改的代码立刻就可以实现，不用每次都重启apache了</p>
+
+<h2 id="section-1">查看变量方式</h2>
+<p>再没有使用调试模式时，可能需要使用</p>
+
+<pre><code>import logging
+logging.info('xxx')
+</code></pre>
+
+<p>来打日志查看一些变量或者输出，这样显然是比较低效的。推荐的做法是开启调试模式，直接print变量，在终端中直接查看。</p>
+
+<p>另外也可以利用assert命令来查看，因为django本身提供了强大的错误输出界面，再想要查看变量的地方之后，增加</p>
+
+<pre><code>assert False
+</code></pre>
+
+<p>即可输出trace错误界面，在界面中查看变量即可</p>
+
+<h2 id="section-2">经常查看文档</h2>
+<p>OpenStack的文档越来越完善，在Horizon部分有详细的二次开发文档，具体可以查看<a href="http://docs.openstack.org/developer/horizon/">官方文档</a></p>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/03/20/debug-and-modify-openstack-horizon.html&text=调试和修改OpenStack中的Horizon部分" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/03/20/debug-and-modify-openstack-horizon.html&title=调试和修改OpenStack中的Horizon部分" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

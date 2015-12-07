@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>HTML中meta标签viewpoint的作用 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="在写此博客程序布局时，响应式布局一直不好使，各种调试总算找到原因在于没有写meta viewpoint标签，在此做一个总结，以免以后出问题">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,50 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130506">HTML中meta标签viewpoint的作用</h1>
+  <h2 id="debug">debug过程</h2>
+<p>1.在web上浏览的时候，响应式布局是好用的，放大缩小页面都可以实现页面变更，但是在手机上调试的时候死活不能用</p>
+
+<p>2.因为css中@media是根据window的宽度来控制css的，所以我尝试输出了一下在window变更的时候window的width，结果发现PC上使用时一切正常，而手机上输出的一直是980。</p>
+
+<p>原因很简单，手机上的浏览器是全屏的，我手机实际宽度是320像素，而我手机分辨率是980宽度，所以手机上打出来的是980而不是320</p>
+
+<p>3.增加</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+</code></pre>
+
+<p>以后发现手机window的width变为320了，即预期效果</p>
+
+<h2 id="viewpoint">viewpoint说明</h2>
+
+<ul>
+  <li>width 控制viewpoint的宽度，可以是固定值，也可以是device-width，即设备的宽度</li>
+  <li>height 高度</li>
+  <li>initial-scale 控制初始化缩放比例，1.0表示不可以缩放</li>
+  <li>maximum-scale 最大缩放比例</li>
+  <li>minimum-scale 最小缩放比例</li>
+</ul>
+
+<p>可见如果不定义viewpoint的话，页面宽度以屏幕分辨率为基准，而设置以后可以根据设备宽度来调整页面，达到适配终端大小的效果</p>
+
+<h2 id="section">参考</h2>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag">Using the viewport meta tag to control layout on mobile browsers</a></p>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/05/06/the-viewpoint-metatag.html&text=HTML中meta标签viewpoint的作用" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/05/06/the-viewpoint-metatag.html&title=HTML中meta标签viewpoint的作用" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

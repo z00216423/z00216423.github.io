@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>部署一个ceilometer-horizon项目 | 不再停留</title>
 <meta name="author" content="朱同华">
 
 
+
+  <meta name="description " content="准备做一个OpenStack的监控项目，以前使用的是kanyun，但是由于kanyun放出来的代码是不完全的，不适合持续跟踪，而且不支持F版本，所以就放弃了。OpenStack项目里已经有了Ceilometer项目，作为OpenStack整个项目的监控，只是暂时还不支持horizon展示，所以需要自己写Horizon部分代码，看到有个哥们已经写了，所以就拿来部署一下。">
 
 
 <link rel="shortcut icon" href="http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico" />
@@ -278,8 +280,54 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20130501">部署一个ceilometer-horizon项目</h1>
+  <h2 id="section">下载代码</h2>
+<p>原来的代码好像安装的时候没有把文件全拷进去，用我修改过的吧</p>
+
+<pre><code>git clone https://github.com/suyan/ceilometer-horizon.git    
+</code></pre>
+
+<p>下面是他原来的代码</p>
+
+<pre><code>git clone https://github.com/yuanotes/ceilometer-horizon.git
+</code></pre>
+
+<h2 id="section-1">安装必须的包</h2>
+<p>他用了导出pdf的python库，所以先得装一下</p>
+
+<pre><code>easy_install svglib
+easy_install reportlab
+./setup.py install
+</code></pre>
+
+<h2 id="horizon">增加horizon部分</h2>
+<p>修改horizon/local目录中的local_setting.py</p>
+
+<pre><code>import sys
+settings = sys.modules['openstack_dashboard.settings']
+settings.INSTALLED_APPS += ('ceilometer_horizon.admin',)
+from openstack_dashboard.dashboards.admin import dashboard
+dashboard.SystemPanels.panels += ('ceilometer',)
+</code></pre>
+
+<h2 id="apache">重启apache</h2>
+
+<pre><code>service apache2 restart
+</code></pre>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2013/05/01/deploy-a-ceilometer-horizon-project.html&text=部署一个ceilometer-horizon项目" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2013/05/01/deploy-a-ceilometer-horizon-project.html&title=部署一个ceilometer-horizon项目" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

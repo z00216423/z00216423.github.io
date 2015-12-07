@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>PHP 常用资源 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="PHP">
 
 
 
@@ -278,8 +280,96 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140115">PHP 常用资源</h1>
+  <h2 id="section">常用资源</h2>
+
+<h3 id="section-1">常用扩展</h3>
+
+<ol>
+  <li><a href="http://www.phpdoc.org">phpDocumentor</a></li>
+  <li><a href="https://phpunit.de">PHPUnit</a></li>
+  <li><a href="https://github.com/guzzle/guzzle">Guzzle</a></li>
+</ol>
+
+<h3 id="section-2">好文</h3>
+<ol>
+  <li><a href="http://wulijun.github.io/php-the-right-way/">PHP之道</a></li>
+  <li><a href="http://blog.csdn.net/fangaoxin/article/details/6952954">Cookie/Session机制详解</a></li>
+</ol>
+
+<h3 id="section-3">优秀的类库</h3>
+<ol>
+  <li><a href="http://jingwentian.com/t-145">PHP中文分词: 自动打标签功能</a></li>
+</ol>
+
+<h3 id="section-4">判断是否为空</h3>
+<pre><code>+--------------+-----------+---------+-----------+---------+--------+
+| 真值表        | gettype() | empty() | is_null() | isset() | (bool) |
++--------------+-----------+---------+-----------+---------+--------+
+| $x = ""      | string    | true    | false     | true    | false  |
+| $x=null      | NULL      | true    | true      | false   | false  |
+| var $x       | NULL      | true    | true      | false   | false  |
+| $x = array() | array     | true    | false     | true    | false  |
+| $x = false   | boolean   | true    | false     | true    | false  |
+| $x = 15      | integer   | false   | false     | true    | true   |
+| $x = 1       | integer   | false   | false     | true    | true   |
+| $x = 0       | integer   | true    | false     | true    | false  |
+| $x = -1      | integer   | false   | false     | true    | true   |
+| $x = '15'    | string    | false   | false     | true    | true   |
+| $x = '1'     | string    | false   | false     | true    | true   |
+| $x = '0'     | string    | true    | false     | true    | false  |
+| $x = '-1'    | string    | false   | false     | true    | true   |
+| $x = 'foo'   | string    | false   | false     | true    | true   |
+| $x = 'true'  | string    | false   | false     | true    | true   |
+| $x = 'false' | string    | false   | false     | true    | true   |
++--------------+-----------+---------+-----------+---------+--------+
+</code></pre>
+
+<h2 id="section-5">常用命令</h2>
+
+<h3 id="phpunit">修改phpunit内存限制</h3>
+
+<pre><code>phpunit -d memory_limit=512M
+</code></pre>
+
+<h2 id="phpstorm-">PHPStorm 常用快捷键</h2>
+
+<ul>
+  <li>
+    <p>Quick Command</p>
+
+    <p><code>Command + Shift + A</code></p>
+  </li>
+  <li>
+    <p>Quick File</p>
+
+    <p><code>Command + Shift + O</code></p>
+  </li>
+  <li>
+    <p>Quick Class</p>
+
+    <p><code>Command + O</code></p>
+  </li>
+  <li>
+    <p>Quick Symbol</p>
+
+    <p><code>Command + Option + O</code></p>
+  </li>
+</ul>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/01/15/general-php-resources.html&text=PHP 常用资源" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/01/15/general-php-resources.html&title=PHP 常用资源" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

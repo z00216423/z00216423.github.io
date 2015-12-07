@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>HTML 常用资源 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="HTML">
 
 
 
@@ -278,8 +280,40 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140115">HTML 常用资源</h1>
+  <h2 id="section">常用属性</h2>
+
+<h3 id="linkmediascreen">在link中可能会出现media=screen的情况</h3>
+<p>这个属性是确定在哪种情况下使用这个link的css文件，screen是指输出到屏幕，而print用于打印</p>
+
+<h3 id="metaviewport">在meta中增加viewport选项</h3>
+<p>viewport的作用是告诉浏览器，目前的装置情况。</p>
+
+<pre><code>&lt;meta name="viewport" content="width=device-width;initial-scale=1.0"&gt;
+</code></pre>
+
+<ul>
+  <li>width:数字或device-width   设置宽度</li>
+  <li>height:数字或device-width    设置高度</li>
+  <li>initial-scale:最小0.25，最大5   初始缩放</li>
+  <li>minimum-scale:最小0.25，最大5   最小缩放</li>
+  <li>maximum-scale:最小0.25，最大5   最大缩放</li>
+  <li>user-scalable:1或0(yes or no)  是否允许用户缩放</li>
+</ul>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/01/15/general-html-resources.html&text=HTML 常用资源" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/01/15/general-html-resources.html&title=HTML 常用资源" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

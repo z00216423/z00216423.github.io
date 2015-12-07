@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>回退Mac上用Brew安装的PHP版本 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="PHP,Mac,Brew,旧版本,Version">
 
 
 
@@ -278,8 +280,73 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140926">回退Mac上用Brew安装的PHP版本</h1>
+  <blockquote>
+  <p>昨天随手一点<code>brew upadte &amp; brew upgrade</code>后phpunit出现了各种F，细查下来原来是 php 5.5.17 的一个<a href="https://bugs.php.net/bug.php?id=67839">bug fix</a> 引起的。为了暂时正常使用phpunit，只能回退php的版本。</p>
+</blockquote>
+
+<h2 id="section">版本切换方式</h2>
+
+<p>通过brew安装的php可以通过<code>brew link</code>和<code>brew unlink</code>来切换不同版本。</p>
+
+<p>例如</p>
+
+<pre><code class="language-bash">brew list
+brew unlink php56
+brew link php55
+</code></pre>
+
+<p>大版本可以用<code>brew list</code>来查，如果是小版本的话只能去<code>/usr/local/Cellar/php55</code>看了。这个时候使用<code>php-version</code>可以更方便一点。</p>
+
+<h2 id="php-version">安装<code>php-version</code></h2>
+
+<p><a href="https://github.com/wilmoore/php-version">php-version</a>是一个帮助管理从brew安装的php版本切换的工具。</p>
+
+<p>安装非常简单</p>
+
+<pre><code class="language-bash">brew install php-version
+</code></pre>
+
+<p>然后执行</p>
+
+<pre><code class="language-bash">source $(brew --prefix php-version)/php-version.sh &amp;&amp; php-version 5
+</code></pre>
+
+<h2 id="php-version-1">使用<code>php-version</code></h2>
+
+<p>直接执行</p>
+
+<pre><code class="language-bash">php-version
+</code></pre>
+
+<p>就可以看到现有的版本，比如我自己的</p>
+
+<pre><code class="language-bash">$ php-version
+  5.5.15
+* 5.5.16
+  5.5.17
+</code></pre>
+
+<p>然后使用以下命令切换即可</p>
+
+<pre><code class="language-bash">php-version 5.5.15
+</code></pre>
+
+<p>再看php的版本，已经切换好了。</p>
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/09/26/use-old-version-of-brew-php.html&text=回退Mac上用Brew安装的PHP版本" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/09/26/use-old-version-of-brew-php.html&title=回退Mac上用Brew安装的PHP版本" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 

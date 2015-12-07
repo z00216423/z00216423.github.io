@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>404 Not Found Error | 不再停留</title>
+<title>Python 常用资源 | 不再停留</title>
 <meta name="author" content="朱同华">
+
+  <meta name="keywords" content="Python">
 
 
 
@@ -278,8 +280,50 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title">404 Not Found Error</h1>
+  <h1 id="post__title" data-identifier="20140115">Python 常用资源</h1>
+  <h2 id="section">常用代码</h2>
+
+<h3 id="section-1">遍历对象</h3>
+<pre><code>for key in a.__dict__:
+    print key,':',a.__dict__[key]
+</code></pre>
+
+<h3 id="section-2">调试方法</h3>
+<pre><code>assert False   //引发异常，观察错误界面
+import logging
+logging.info('')  //写日志
+</code></pre>
+
+<h3 id="section-3">获得当前时间</h3>
+<pre><code>#时间戳
+time.time()
+#日期时间
+time.ctime()
+#iso时间
+datetime.fromtimestamp(time.time()).isoformat()
+#固定格式
+time.strftime('%Y-%m-%d',time.localtime(time.time())) ### 日期到时间戳
+dateC=datetime.datetime(2010,6,6,8,14,59)
+timestamp=time.mktime(dateC.timetuple()) ### 时间戳到日期
+ltime=time.localtime(1237515355.0)
+timeStr=time.strftime("%Y-%m-%d %H:%M:%S", ltime) ### 之后的包从绝对位置导入
+from __future__ import absolute_import
+</code></pre>
+
+
 </article> <!-- end #post__content -->
+
+<div id="post__share">
+  <a id="icon-twitter" class="fontello" href="https://twitter.com/intent/tweet?url=http://zhutonghua.cn/2014/01/15/general-python-resources.html&text=Python 常用资源" target="_blank"></a>
+  <a id="icon-cc" class="fontello" href="http://creativecommons.org/licenses/by-nc-sa/3.0" target="_blank"></a>
+  <a id="icon-weibo" class="fontello" href="http://v.t.sina.com.cn/share/share.php?url=http://zhutonghua.cn/2014/01/15/general-python-resources.html&title=Python 常用资源" target="_blank"></a>
+</div> <!-- end #post__share -->
+<div id="disqus_thread" name="Frank">
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink" target="_blank">Loading Disqus comments...</a>
+</div>
+
+
         <p id="copyright">Powered by <a href="http://jekyllrb.com" target="_blank">Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Theme <a href="https://github.com/P233/3-Jekyll" target="_blank">3-Jekyll</a>&nbsp;&nbsp;|&nbsp;&nbsp;Hosted on <a href="https://pages.github.com" target="_blank">Github</a></p>
       </div> <!-- end #pjax -->
 
