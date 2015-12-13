@@ -1,6 +1,6 @@
 permalink: /:year/:month/:day/:title.html
 markdown: kramdown
-highlighter: true
+pygments: true
 
 kramdown:
   input: GFM
@@ -20,8 +20,8 @@ url: http://zhutonghua.cn
 rss_url: /pages/atom.xml
 
 # avatar头像及Favicon
-avatar: https://avatars2.githubusercontent.com/u/8267109?v=3&s=460
-favicon: http://img3.imgtn.bdimg.com/it/u=2735684578,4115352573&fm=21&gp=0.jpg
+avatar: http://7u2ho6.com1.z0.glb.clouddn.com/site-avatar.png
+favicon: http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico
 
 # google analytics 设置
 #ga:
