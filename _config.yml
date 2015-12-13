@@ -10,7 +10,7 @@ author:
   name: 朱同华
   email: tonghuazhu@gmail.com
   link: http://zhutonghua.cn
-  weibo: http://weibo.com/
+  weibo: http://www.weibo.com/u/1847093092
   github: http://github.com/z00216423
 
 # 站点信息
@@ -20,8 +20,8 @@ url: http://zhutonghua.cn
 rss_url: /pages/atom.xml
 
 # avatar头像及Favicon
-avatar: http://7u2ho6.com1.z0.glb.clouddn.com/site-avatar.png
-favicon: http://7u2ho6.com1.z0.glb.clouddn.com/site-favicon.ico
+avatar: https://avatars0.githubusercontent.com/u/8267109?v=3&s=400
+favicon: https://avatars2.githubusercontent.com/u/8267109?v=3&s=40
 
 # google analytics 设置
 #ga:
