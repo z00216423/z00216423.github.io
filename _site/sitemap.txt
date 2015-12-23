@@ -9,6 +9,8 @@
 
 
 
+  /2015/12/23/scala-file.html
+
   /2015/12/13/blog-build-success.html
 
   /2015/10/04/general-vim-resources.html
