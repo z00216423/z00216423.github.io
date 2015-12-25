@@ -7,7 +7,7 @@ tags: blog
 
 在Scala中文件读取操作，我们通常调用object类scala.io.Source提供的API接口来读取文件。API中提供了丰富的接口，基本能满足各种来源的数据读取。  
 
-```
+{% highlight scala %}
 object Source extends scala.AnyRef {
   val DefaultBufSize : scala.Int = { /* compiled code */ }
   def stdin : scala.io.BufferedSource = { /* compiled code */ }
@@ -35,7 +35,7 @@ object Source extends scala.AnyRef {
   def fromInputStream(is : java.io.InputStream, enc : scala.Predef.String) : scala.io.BufferedSource = { /* compiled code */ }
   def fromInputStream(is : java.io.InputStream)(implicit codec : scala.io.Codec) : scala.io.BufferedSource = { /* compiled code */ }
 }
-```
+{% endhighlight %}
 
 多个接口中用到了隐式参数，实现默认文件编码格式的载入。用Scala的这个API读取文件最大的好处我认为是接口对系统资源操作进行了封装，可以防止资源不被安全释放(close)，其次是调用代码不用考虑资源来自何处，以及如何归还，只要专注如何去使用资源。今天才发现，我们经常用的这种封装方式叫做借贷模式（loan pattern），又涨姿势了。
 
