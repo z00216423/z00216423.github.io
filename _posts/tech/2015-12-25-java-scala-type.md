@@ -24,7 +24,7 @@ tags: blog
 
  那么问题来，如果具体类型被删除了，编译后又怎么区分呢？答案是，编译后，JVM已经傻傻分不清楚了。所以对于方法重载，如果参数列表都一样，只是范型中的具体类型不一样的话，编译器会认为这两个方法签名是一样的，从而报错。我简单尝试写了一下： 
 
-```
+{% highlight java %}
 public class TestTypeErasue {
 
         public void test(List<String> ls){
@@ -35,7 +35,7 @@ public class TestTypeErasue {
         }
 
 }
-```
+{% endhighlight %}
 
  IDE报错提示这两个方法具有相同的类型擦除。`List<String>`和`List<Integer>`， 编译后，再JVM看来是一样的东西， 这是Java范型实现的一个弊端。这又涉及到一个类型与类的概念了。`List<String>`和`List<Integer>`是同一个类，但是是不同的类型。从这个例子可以看出，类与类型的关系是： **类相同，类型不一定相同；类型相同，肯定是同一个类。**
 
