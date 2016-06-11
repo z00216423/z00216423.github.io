@@ -24,7 +24,7 @@ tags: blog
 
  那么问题来，如果具体类型被删除了，编译后又怎么区分呢？答案是，编译后，JVM已经傻傻分不清楚了。所以对于方法重载，如果参数列表都一样，只是范型中的具体类型不一样的话，编译器会认为这两个方法签名是一样的，从而报错。我简单尝试写了一下： 
 
-{% highlight java %}
+{% highlight java linenos %}
 public class TestTypeErasue {
 
         public void test(List<String> ls){
