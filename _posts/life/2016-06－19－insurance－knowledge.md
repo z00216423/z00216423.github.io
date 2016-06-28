@@ -21,6 +21,7 @@ tags: blog
 － 买保险是否要到官网购买，还是从第三方销售平台购买，即投保渠道如何选择？   
 通过专业保险代理公司购买保险产品，才是一种理智的选择。
 － 家族病史，如何投保。
-- 保险公司评级  
-2016年4月惠誉[保险公司评级](https://www.fitchratings.com/site/pressrelease?id=1002941)。
+- 保险公司评级和排名  
+2016年4月惠誉[保险公司评级](https://www.fitchratings.com/site/pressrelease?id=1002941)。  
+2016中国大陆[保险公司排名](http://www.vobao.com/zt/baoxiangongsipaiming/)
 
